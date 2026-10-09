@@ -14,7 +14,6 @@ CREATE TABLE comuna(id_comuna INT PRIMARY KEY,
 -- Creamos la tabla de galeria
 CREATE TABLE galeria(id_galeria INT PRIMARY KEY,
 	id_comuna INT,
-	id_region INT,
 	nombre_galeria VARCHAR(100),
 	CONSTRAINT fk_galeria_comuna FOREIGN KEY (id_comuna) REFERENCES comuna(id_comuna));
 
@@ -26,9 +25,11 @@ CREATE TABLE tienda(id_tienda INT PRIMARY KEY,
 	nombre_local VARCHAR(100),
 	CONSTRAINT fk_tienda_comuna FOREIGN KEY (id_comuna) REFERENCES comuna(id_comuna));
 
+
+
 -- Creamos la tabla de tipo
 CREATE TABLE tipo(id_tipo INT PRIMARY KEY, 
-	ipo_de_arte VARCHAR(100));
+	tipo_de_arte VARCHAR(100));
 
 
 -- Creamos la tabla de tipo
@@ -70,7 +71,6 @@ CREATE TABLE vendedor(id_vendedor INT PRIMARY key,
 
 -- Creamos la tabla de empleado
 CREATE TABLE empleado(id_empleado INT PRIMARY key,
-	id_empleado INT PRIMARY KEY,
     id_galeria INT,
     nombre_empleado VARCHAR(100),
     genero VARCHAR(20),
