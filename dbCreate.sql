@@ -21,23 +21,23 @@ CREATE TABLE tipo(id_tipo INT PRIMARY KEY,
 	tipo_de_arte VARCHAR(10));
 
 
--- Creamos la tabla de tipo
-CREATE TABLE cliente(id_cliente INT PRIMARY KEY, 
-	id_comuna INT, 
-	nombre_cliente VARCHAR(100), 
-	genero VARCHAR(100),
-	CONSTRAINT fk_cliente_comuna FOREIGN KEY (id_comuna) REFERENCES comuna(id_comuna));
+-- Creamos la tabla de clientes
+CREATE TABLE clientes(
+    id_cliente BIGSERIAL PRIMARY KEY, 
+    id_comuna BIGINT, 
+    nombre_cliente VARCHAR(100) NOT NULL,
+    FOREIGN KEY (id_comuna) REFERENCES comunas(id_comuna));
 
 
--- Creamos la tabla de venta
-CREATE TABLE venta(id_venta INT PRIMARY key,
-	id_producto INT,
-    id_cliente INT,
-    id_vendedor INT,
-    fecha_venta DATE,
-    CONSTRAINT fk_venta_producto FOREIGN KEY (id_producto) REFERENCES producto(id_producto),
-    CONSTRAINT fk_venta_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
-    CONSTRAINT fk_venta_vendedor FOREIGN KEY (id_vendedor) REFERENCES vendedor(id_vendedor));
+-- Creamos la tabla de ventas
+CREATE TABLE ventas(
+    id_venta BIGSERIAL PRIMARY KEY,
+    id_cliente BIGINT,
+    id_vendedor BIGINT,
+    fecha_venta TIMESTAMP NOT NULL,
+    precio_final DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_vendedor) REFERENCES vendedores(id_vendedor));
 
 
 -- Creamos la tabla de producto
