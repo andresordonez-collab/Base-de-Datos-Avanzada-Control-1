@@ -69,6 +69,7 @@ CREATE TABLE vendedores(
 	id_empleado BIGINT,
 	FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado));
 
+-- Creamos la tabla de productos_ventas.
 CREATE TABLE productos_ventas(
     id_producto BIGINT,
     id_venta BIGINT,
