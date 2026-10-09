@@ -1,31 +1,20 @@
 -- GRUPO 2 (Base de datos de galerías de arte)
 
 -- Creamos la tabla de region
-CREATE TABLE region(id_region INT PRIMARY KEY, nombre_region VARCHAR (100));
+CREATE TABLE regiones(id_region BIGSERIAL PRIMARY KEY, 
+	nombre_region VARCHAR (100) NOT NULL);
 
 -- Creamos la tabla de comuna
-CREATE TABLE comuna(id_comuna INT PRIMARY KEY,
-	id_region INT,
-	nombre_comuna VARCHAR(100),
-	CONSTRAINT fk_comuna_region FOREIGN KEY (id_region) REFERENCES region(id_region));
-
-
+CREATE TABLE comunas(id_comuna BIGSERIAL PRIMARY KEY,
+	id_region BIGINT,
+	nombre_comuna VARCHAR(100) NOT NULL,
+	FOREIGN KEY (id_region) REFERENCES regiones(id_region));
 
 -- Creamos la tabla de galeria
-CREATE TABLE galeria(id_galeria INT PRIMARY KEY,
-	id_comuna INT,
-	nombre_galeria VARCHAR(100),
-	CONSTRAINT fk_galeria_comuna FOREIGN KEY (id_comuna) REFERENCES comuna(id_comuna));
-
-
-
--- Creamos la tabla local
-CREATE TABLE tienda(id_tienda INT PRIMARY KEY,
-	id_comuna INT,
-	nombre_local VARCHAR(100),
-	CONSTRAINT fk_tienda_comuna FOREIGN KEY (id_comuna) REFERENCES comuna(id_comuna));
-
-
+CREATE TABLE galerias(id_galeria BIGSERIAL PRIMARY KEY,
+	id_comuna BIGINT,
+	nombre_galeria VARCHAR(100) NOT NULL,
+	FOREIGN KEY (id_comuna) REFERENCES comunas(id_comuna));
 
 -- Creamos la tabla de tipo
 CREATE TABLE tipo(id_tipo INT PRIMARY KEY, 
