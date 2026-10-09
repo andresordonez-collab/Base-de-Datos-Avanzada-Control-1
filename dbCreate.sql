@@ -16,9 +16,11 @@ CREATE TABLE galerias(id_galeria BIGSERIAL PRIMARY KEY,
 	nombre_galeria VARCHAR(100) NOT NULL,
 	FOREIGN KEY (id_comuna) REFERENCES comunas(id_comuna));
 
--- Creamos la tabla de tipo
-CREATE TABLE tipo(id_tipo INT PRIMARY KEY, 
-	tipo_de_arte VARCHAR(10));
+-- Creamos la tabla de tipos de arte.
+CREATE TABLE tipos(
+    id_tipo BIGSERIAL PRIMARY KEY, 
+	tipo_de_arte VARCHAR(10) NOT NULL
+);
 
 
 -- Creamos la tabla de clientes
@@ -40,17 +42,17 @@ CREATE TABLE ventas(
     FOREIGN KEY (id_vendedor) REFERENCES vendedores(id_vendedor));
 
 
--- Creamos la tabla de producto
-create table producto(id_producto INT primary key,
-	id_tipo INT,
-	id_local INT,
-	nombre_producto VARCHAR(100),
-	precio INT,
-	peso_kg INT,
-	CONSTRAINT fk_producto_tipo FOREIGN KEY (id_tipo) REFERENCES tipo(id_tipo),
-	CONSTRAINT fk_producto_local FOREIGN KEY (id_local) REFERENCES local(id_local));
-
-
+-- Creamos la tabla de productos
+create table productos(
+    id_producto BIGSERIAL PRIMARY KEY,
+	id_tipo BIGINT,
+	id_local BIGINT,
+	nombre_producto VARCHAR(100) NOT NULL UNIQUE,
+	precio DECIMAL(10,2) NOT NULL,
+	peso_kg DECIMAL(6,2) NOT NULL,
+    disponible BOOLEAN NOT NULL DEFAULT TRUE,
+	FOREIGN KEY (id_tipo) REFERENCES tipos(id_tipo),
+);
 
 -- Creamos la tabla de empleado
 CREATE TABLE empleados(id_empleado BIGSERIAL PRIMARY KEY,
@@ -65,4 +67,16 @@ CREATE TABLE empleados(id_empleado BIGSERIAL PRIMARY KEY,
 CREATE TABLE vendedores(
 	id_vendedor BIGSERIAL PRIMARY KEY,
 	id_empleado BIGINT,
+<<<<<<< HEAD
 	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado));
+=======
+	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado));
+
+CREATE TABLE productos_ventas(
+    id_producto BIGINT,
+    id_venta BIGINT,
+    PRIMARY KEY (id_producto, id_venta),
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
+    FOREIGN KEY (id_venta) REFERENCES ventas(id_venta)
+);
+>>>>>>> 56365e7 (Merge)
