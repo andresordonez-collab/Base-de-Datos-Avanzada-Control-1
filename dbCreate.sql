@@ -29,7 +29,7 @@ CREATE TABLE tienda(id_tienda INT PRIMARY KEY,
 
 -- Creamos la tabla de tipo
 CREATE TABLE tipo(id_tipo INT PRIMARY KEY, 
-	tipo_de_arte VARCHAR(100));
+	tipo_de_arte VARCHAR(10));
 
 
 -- Creamos la tabla de tipo
