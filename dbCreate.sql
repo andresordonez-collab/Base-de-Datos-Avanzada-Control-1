@@ -31,6 +31,21 @@ CREATE TABLE clientes(
     FOREIGN KEY (id_comuna) REFERENCES comunas(id_comuna));
 
 
+-- Creamos la tabla de empleado
+CREATE TABLE empleados(id_empleado BIGSERIAL PRIMARY KEY,
+	id_galeria BIGINT,
+    nombre_empleado VARCHAR(100),
+    genero VARCHAR(20) NOT NULL,
+    sueldo DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_galeria) REFERENCES galerias(id_galeria));
+
+
+-- Creamos la tabla de vendedor
+CREATE TABLE vendedores(
+	id_vendedor BIGSERIAL PRIMARY KEY,
+	id_empleado BIGINT,
+	FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado));
+
 -- Creamos la tabla de ventas
 CREATE TABLE ventas(
     id_venta BIGSERIAL PRIMARY KEY,
@@ -46,28 +61,12 @@ CREATE TABLE ventas(
 create table productos(
     id_producto BIGSERIAL PRIMARY KEY,
 	id_tipo BIGINT,
-	id_local BIGINT,
 	nombre_producto VARCHAR(100) NOT NULL UNIQUE,
 	precio DECIMAL(10,2) NOT NULL,
 	peso_kg DECIMAL(6,2) NOT NULL,
     disponible BOOLEAN NOT NULL DEFAULT TRUE,
-	FOREIGN KEY (id_tipo) REFERENCES tipos(id_tipo),
+	FOREIGN KEY (id_tipo) REFERENCES tipos(id_tipo)
 );
-
--- Creamos la tabla de empleado
-CREATE TABLE empleados(id_empleado BIGSERIAL PRIMARY KEY,
-	id_galeria BIGINT,
-    nombre_empleado VARCHAR(100),
-    genero VARCHAR(20) NOT NULL,
-    sueldo DECIMAL(6,2) NOT NULL,
-    FOREIGN KEY (id_galeria) REFERENCES galerias(id_galeria));
-
-
--- Creamos la tabla de vendedor
-CREATE TABLE vendedores(
-	id_vendedor BIGSERIAL PRIMARY KEY,
-	id_empleado BIGINT,
-	FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado));
 
 -- Creamos la tabla de productos_ventas.
 CREATE TABLE productos_ventas(
