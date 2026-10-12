@@ -18,3 +18,20 @@ GROUP BY g.id_galeria, g.nombre_galeria
 ORDER BY g.id_galeria;
 
 -- 10) Venta más pesada en kilogramos por mes en los últimos 12 meses.
+
+WITH peso_ventas AS (
+    SELECT
+    EXTRACT(YEAR FROM v.fecha_venta) AS year,
+    EXTRACT(MONTH FROM v.fecha_venta) AS mes,
+    v.id_venta, 
+    v.fecha_venta,  
+    SUM(p.peso_kg) AS peso_total
+    FROM ventas v
+    JOIN productos_ventas pv ON pv.id_venta = v.id_venta
+    JOIN productos p ON p.id_producto = pv.id_producto
+    WHERE v.fecha_venta >= (SELECT MAX(fecha_venta) FROM ventas) - INTERVAL '12 months'
+    GROUP BY v.id_venta, v.fecha_venta
+)
+SELECT DISTINCT ON (year,mes) year, mes, id_venta, fecha_venta, peso_total
+FROM peso_ventas
+ORDER BY YEAR ASC, mes ASC, peso_total DESC;
