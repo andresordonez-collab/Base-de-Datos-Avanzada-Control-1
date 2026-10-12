@@ -1,4 +1,4 @@
--- 1) Escultura más cara vendida por galería en el último mes. (Consulta al Ayudante)
+-- 1) Escultura más cara vendida por galería en el último mes. 
 
 
 -- Seleccionamos las columnas correspondientes a una tabla en particular ademas de extraer el mes y año respectivo de cada venta del producto
