@@ -46,7 +46,7 @@ INSERT INTO clientes (id_cliente, id_comuna, nombre_cliente) VALUES
     (9, 5, 'Antonia Cáceres'),
     (10, 3, 'Tomás Jara');
 
--- EMPLEADOS (12 registros)
+-- EMPLEADOS (24 registros)
 INSERT INTO empleados (id_empleado, id_galeria, nombre_empleado, genero, sueldo) VALUES
     (1, 1, 'Ana Pérez', 'Mujer', 850000),
     (2, 1, 'Luis Ortega', 'Hombre', 940000),
@@ -60,6 +60,18 @@ INSERT INTO empleados (id_empleado, id_galeria, nombre_empleado, genero, sueldo)
     (10, 4, 'Daniela Ruiz', 'Mujer', 920000),
     (11, 4, 'Pedro Silva', 'Hombre', 1020000),
     (12, 4, 'Lorena Díaz', 'Mujer', 1150000);
+    (13, 1, 'Rodrigo Fuentes', 'Hombre', 910000),
+    (14, 1, 'Francisca Morales', 'Mujer', 1020000),
+    (15, 1, 'Cristián Alarcón', 'Hombre', 880000),
+    (16, 2, 'Valeria Rivas', 'Mujer', 960000),
+    (17, 2, 'Esteban Bravo', 'Hombre', 1080000),
+    (18, 2, 'Ignacia Paz', 'Mujer', 915000),
+    (19, 3, 'Matías Villalobos', 'Hombre', 890000),
+    (20, 3, 'Constanza Vera', 'Mujer', 1040000),
+    (21, 3, 'Felipe Carrasco', 'Hombre', 1150000),
+    (22, 4, 'Claudia Venegas', 'Mujer', 970000),
+    (23, 4, 'Sebastián Palma', 'Hombre', 1110000),
+    (24, 4, 'Paulina Navarrete', 'Mujer', 890000);
 
 -- VENDEDORES (8 registros)
 INSERT INTO vendedores (id_vendedor, id_empleado) VALUES
@@ -72,7 +84,7 @@ INSERT INTO vendedores (id_vendedor, id_empleado) VALUES
     (7, 10),
     (8, 11);
 
--- VENTAS (38 registros)
+-- VENTAS (56 registros)
 INSERT INTO ventas (id_venta, id_cliente, id_vendedor, fecha_venta, precio_final) VALUES
     (1, 1, 1, '2019-02-04 12:00:00', 480000),
     (2, 1, 3, '2019-02-05 13:00:00', 395000),
@@ -112,8 +124,26 @@ INSERT INTO ventas (id_venta, id_cliente, id_vendedor, fecha_venta, precio_final
     (36, 1, 3, '2026-09-25 18:00:00', 510000),
     (37, 6, 5, '2026-09-26 18:00:00', 970000),
     (38, 8, 7, '2026-09-27 18:00:00', 1640000);
+    (39, 2, 1, '2025-10-12 11:30:00', 250000),
+    (40, 3, 2, '2025-10-25 16:45:00', 850000),
+    (41, 4, 3, '2025-12-08 10:15:00', 310000),
+    (42, 5, 4, '2025-12-20 18:20:00', 920000),
+    (43, 6, 5, '2026-01-14 12:00:00', 280000),
+    (44, 7, 6, '2026-01-28 17:30:00', 1100000),
+    (45, 8, 7, '2026-02-10 14:10:00', 340000),
+    (46, 9, 8, '2026-02-22 15:50:00', 980000),
+    (47, 10, 1, '2026-03-09 11:00:00', 290000),
+    (48, 1, 2, '2026-03-24 16:15:00', 1250000),
+    (49, 2, 3, '2026-04-11 13:20:00', 320000),
+    (50, 3, 4, '2026-04-26 18:00:00', 790000),
+    (51, 4, 5, '2026-05-08 10:45:00', 270000),
+    (52, 5, 6, '2026-05-21 17:10:00', 1050000),
+    (53, 6, 7, '2026-06-12 12:30:00', 360000),
+    (54, 7, 8, '2026-06-25 16:40:00', 890000),
+    (55, 8, 1, '2026-07-07 11:15:00', 305000),
+    (56, 9, 2, '2026-07-22 15:00:00', 1180000);
 
--- PRODUCTOS (50 registros)
+-- PRODUCTOS (68 registros)
 INSERT INTO productos (id_producto, id_tipo, nombre_producto, precio, peso_kg, disponible) VALUES
     (1, 1, 'Amanecer en el Valle 01', 480000, 2.4, FALSE),
     (2, 1, 'Bruma de Invierno 02', 395000, 1.75, FALSE),
@@ -165,8 +195,26 @@ INSERT INTO productos (id_producto, id_tipo, nombre_producto, precio, peso_kg, d
     (48, 2, 'Figura de Bronce 21', 580000, 14.2, TRUE),
     (49, 1, 'Paisaje de Otoño 28', 340000, 3.7, TRUE),
     (50, 2, 'Raíces de Piedra 22', 770000, 23.1, TRUE);
+    (51, 1, 'Reflejos de Cobre 01', 250000, 2.10, FALSE),
+    (52, 2, 'Gigante de Piedra 01', 850000, 34.50, FALSE),
+    (53, 1, 'Nieve en la Cumbre 01', 310000, 1.80, FALSE),
+    (54, 2, 'Tótem de Roble 01', 920000, 28.20, FALSE),
+    (55, 1, 'Sendero Costero 01', 280000, 2.30, FALSE),
+    (56, 2, 'Monolito Urbano 01', 1100000, 42.00, FALSE),
+    (57, 1, 'Caleta al Atardecer 01', 340000, 3.10, FALSE),
+    (58, 2, 'Estructura de Acero 01', 980000, 31.50, FALSE),
+    (59, 1, 'Valle Florido 01', 290000, 1.95, FALSE),
+    (60, 2, 'Torso en Granito 01', 1250000, 45.80, FALSE),
+    (61, 1, 'Luces de Ciudad 01', 320000, 2.50, FALSE),
+    (62, 2, 'Columna de Fierro 01', 790000, 26.40, FALSE),
+    (63, 1, 'Neblina Matinal 01', 270000, 1.60, FALSE),
+    (64, 2, 'Bloque Austral 01', 1050000, 38.00, FALSE),
+    (65, 1, 'Bosque Nativo 01', 360000, 2.80, FALSE),
+    (66, 2, 'Espiral de Cemento 01', 890000, 29.70, FALSE),
+    (67, 1, 'Atardecer Marino 01', 305000, 2.20, FALSE),
+    (68, 2, 'Relieve Geométrico 01', 1180000, 36.20, FALSE);
 
--- PRODUCTOS_VENTAS (44 registros)
+-- PRODUCTOS_VENTAS (68 registros)
 INSERT INTO productos_ventas (id_producto, id_venta) VALUES
     (1, 1),
     (2, 2),
@@ -211,7 +259,25 @@ INSERT INTO productos_ventas (id_producto, id_venta) VALUES
     (41, 36),
     (42, 37),
     (43, 38),
-    (44, 38);
+    (44, 38)
+    (51, 39),
+    (52, 40),
+    (53, 41),
+    (54, 42),
+    (55, 43),
+    (56, 44),
+    (57, 45),
+    (58, 46),
+    (59, 47),
+    (60, 48),
+    (61, 49),
+    (62, 50),
+    (63, 51),
+    (64, 52),
+    (65, 53),
+    (66, 54),
+    (67, 55),
+    (68, 56);
 
 -- Sincronización de secuencias BIGSERIAL al utilizar IDs explícitos.
 SELECT setval(pg_get_serial_sequence('regiones', 'id_region'), (SELECT MAX(id_region) FROM regiones));
