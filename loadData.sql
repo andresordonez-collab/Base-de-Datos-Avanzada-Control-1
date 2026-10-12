@@ -59,7 +59,7 @@ INSERT INTO empleados (id_empleado, id_galeria, nombre_empleado, genero, sueldo)
     (9, 3, 'Jorge Muñoz', 'Hombre', 1200000),
     (10, 4, 'Daniela Ruiz', 'Mujer', 920000),
     (11, 4, 'Pedro Silva', 'Hombre', 1020000),
-    (12, 4, 'Lorena Díaz', 'Mujer', 1150000);
+    (12, 4, 'Lorena Díaz', 'Mujer', 1150000),
     (13, 1, 'Rodrigo Fuentes', 'Hombre', 910000),
     (14, 1, 'Francisca Morales', 'Mujer', 1020000),
     (15, 1, 'Cristián Alarcón', 'Hombre', 880000),
@@ -123,7 +123,7 @@ INSERT INTO ventas (id_venta, id_cliente, id_vendedor, fecha_venta, precio_final
     (35, 5, 1, '2026-09-24 18:00:00', 1235000),
     (36, 1, 3, '2026-09-25 18:00:00', 510000),
     (37, 6, 5, '2026-09-26 18:00:00', 970000),
-    (38, 8, 7, '2026-09-27 18:00:00', 1640000);
+    (38, 8, 7, '2026-09-27 18:00:00', 1640000),
     (39, 2, 1, '2025-10-12 11:30:00', 250000),
     (40, 3, 2, '2025-10-25 16:45:00', 850000),
     (41, 4, 3, '2025-12-08 10:15:00', 310000),
@@ -194,7 +194,7 @@ INSERT INTO productos (id_producto, id_tipo, nombre_producto, precio, peso_kg, d
     (47, 1, 'Los Andes al Alba 27', 95000, 0.9, TRUE),
     (48, 2, 'Figura de Bronce 21', 580000, 14.2, TRUE),
     (49, 1, 'Paisaje de Otoño 28', 340000, 3.7, TRUE),
-    (50, 2, 'Raíces de Piedra 22', 770000, 23.1, TRUE);
+    (50, 2, 'Raíces de Piedra 22', 770000, 23.1, TRUE),
     (51, 1, 'Reflejos de Cobre 01', 250000, 2.10, FALSE),
     (52, 2, 'Gigante de Piedra 01', 850000, 34.50, FALSE),
     (53, 1, 'Nieve en la Cumbre 01', 310000, 1.80, FALSE),
@@ -259,7 +259,7 @@ INSERT INTO productos_ventas (id_producto, id_venta) VALUES
     (41, 36),
     (42, 37),
     (43, 38),
-    (44, 38)
+    (44, 38),
     (51, 39),
     (52, 40),
     (53, 41),

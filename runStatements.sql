@@ -29,7 +29,49 @@ INNER JOIN ventas ON ventas.id_vendedor = vendedores.id_vendedor
 GROUP BY galerias.nombre_galeria, empleados.nombre_empleado -- Agrupamos las columnas
 ORDER BY galerias.nombre_galeria, cantidad_ventas DESC; -- Ordenamos de mayor a menor
 
+-- 4) Cliente que ha invertido más en arte por año.
 
+-- Hacemos una subconsulta para calcular el gasto anual de cada cliente, agrupando por año y cliente, y sumando el precio final de las ventas.
+WITH gasto_anual AS (
+    SELECT EXTRACT(YEAR FROM v.fecha_venta) AS year, c.id_cliente, c.nombre_cliente, SUM(v.precio_final) AS total
+    FROM ventas v
+    JOIN clientes c ON c.id_cliente = v.id_cliente
+    GROUP BY year, c.id_cliente, c.nombre_cliente
+),
+
+-- Se crea un ranking de clientes por año basado en el total gastado, se hace con ayuda de PARTITION BY.
+top AS (
+    SELECT *, RANK() OVER (PARTITION BY year ORDER BY total DESC) AS pos
+    FROM gasto_anual
+)
+
+SELECT year, id_cliente, nombre_cliente, total
+FROM top
+WHERE pos = 1
+ORDER BY year;
+
+-- 5) Tipo de arte más vendido por año.
+
+-- Hacemos una subconsulta para calcular la cantidad de ventas por tipo de arte y año.
+WITH ventas_por_tipo AS (
+    SELECT EXTRACT(YEAR FROM v.fecha_venta) AS year, t.id_tipo, t.tipo_de_arte, COUNT(*) AS cant_vendidas
+    FROM productos_ventas pv
+    JOIN ventas v ON v.id_venta = pv.id_venta
+    JOIN productos p ON p.id_producto = pv.id_producto
+    JOIN tipos t ON t.id_tipo = p.id_tipo
+    GROUP BY year, t.id_tipo, t.tipo_de_arte
+),
+
+-- Se crea un ranking de tipos de arte por año basado en la cantidad vendida, se hace con ayuda de PARTITION BY.
+top AS (
+    SELECT *, RANK() OVER (PARTITION BY year ORDER BY cant_vendidas DESC) AS pos
+    FROM ventas_por_tipo
+)
+
+SELECT year, tipo_de_arte, cant_vendidas
+FROM top
+WHERE pos = 1
+ORDER BY year;
 
 -- 9) Promedio de sueldos de hombres y mujeres mensual por galería
 -- Nota: La tabla empleados registra el sueldo mensual base vigente (no histórico),
