@@ -39,16 +39,17 @@ WITH gasto_anual AS (
     GROUP BY year, c.id_cliente, c.nombre_cliente
 ),
 
--- Se crea un ranking de clientes por año basado en el total gastado, se hace con ayuda de PARTITION BY.
-top AS (
-    SELECT *, RANK() OVER (PARTITION BY year ORDER BY total DESC) AS pos
+-- Se hace otra subconsulta para obtener el gasto máximo por año.
+maximos AS (
+    SELECT year, MAX(total) AS max_total
     FROM gasto_anual
+    GROUP BY year
 )
 
-SELECT year, id_cliente, nombre_cliente, total
-FROM top
-WHERE pos = 1
-ORDER BY year;
+SELECT g.year, g.id_cliente, g.nombre_cliente, g.total
+FROM gasto_anual g
+JOIN maximos m ON m.year = g.year AND m.max_total = g.total
+ORDER BY g.year;
 
 -- 5) Tipo de arte más vendido por año.
 
@@ -62,16 +63,17 @@ WITH ventas_por_tipo AS (
     GROUP BY year, t.id_tipo, t.tipo_de_arte
 ),
 
--- Se crea un ranking de tipos de arte por año basado en la cantidad vendida, se hace con ayuda de PARTITION BY.
-top AS (
-    SELECT *, RANK() OVER (PARTITION BY year ORDER BY cant_vendidas DESC) AS pos
+-- Se hace otra subconsulta para obtener la cantidad máxima de ventas por tipo de arte y año.
+maximos AS (
+    SELECT year, MAX(cant_vendidas) AS max_cant
     FROM ventas_por_tipo
+    GROUP BY year
 )
 
-SELECT year, tipo_de_arte, cant_vendidas
-FROM top
-WHERE pos = 1
-ORDER BY year;
+SELECT v.year, v.tipo_de_arte, v.cant_vendidas
+FROM ventas_por_tipo v
+JOIN maximos m ON m.year = v.year AND m.max_cant = v.cant_vendidas
+ORDER BY v.year;
 
 -- 9) Promedio de sueldos de hombres y mujeres mensual por galería
 -- Nota: La tabla empleados registra el sueldo mensual base vigente (no histórico),
