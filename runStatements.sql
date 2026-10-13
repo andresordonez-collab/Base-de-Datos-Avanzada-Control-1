@@ -17,6 +17,36 @@ GROUP BY galerias.nombre_galeria, tipos.tipo_de_arte, EXTRACT(MONTH FROM ventas.
 ORDER BY anio DESC, mes DESC, precio_maximo_de_escultura DESC; -- Ordenamos de mayor a menor
 
 
+-- 2) Pintura más económica vendida el año pasado.
+
+
+-- Seleccionamos los productos vendidos durante 2025, relacionando
+-- las ventas con sus productos y los tipos de arte.
+SELECT
+    v.id_venta,
+    v.fecha_venta,
+    p.id_producto,
+    p.nombre_producto,
+    p.precio,
+    t.tipo_de_arte
+FROM ventas v
+JOIN productos_ventas pv
+    ON v.id_venta = pv.id_venta
+JOIN productos p
+    ON pv.id_producto = p.id_producto
+JOIN tipos t
+    ON p.id_tipo = t.id_tipo
+
+-- Filtramos las ventas realizadas en 2025 y consideramos solo las pinturas.
+WHERE v.fecha_venta >= '2025-01-01'
+  AND v.fecha_venta < '2026-01-01'
+  AND t.tipo_de_arte = 'Pintura'
+
+-- Ordenamos las pinturas por precio ascendente y obtenemos la más económica.
+ORDER BY p.precio ASC
+LIMIT 1;
+
+
 
 -- 3) Vendedor con mas ventas por galeria 
 
@@ -74,6 +104,39 @@ SELECT v.year, v.tipo_de_arte, v.cant_vendidas
 FROM ventas_por_tipo v
 JOIN maximos m ON m.year = v.year AND m.max_cant = v.cant_vendidas
 ORDER BY v.year;
+
+
+
+-- 8) Cliente que ha comprado más pinturas entre 2019 y 2021.
+
+-- Relacionamos las ventas con sus productos, tipos de arte y clientes.
+SELECT
+    c.id_cliente,
+    c.nombre_cliente,
+    COUNT(*) AS cantidad_pinturas
+FROM ventas v
+JOIN productos_ventas pv
+    ON v.id_venta = pv.id_venta
+JOIN productos p
+    ON pv.id_producto = p.id_producto
+JOIN tipos t
+    ON p.id_tipo = t.id_tipo
+JOIN clientes c
+    ON v.id_cliente = c.id_cliente
+
+-- Filtramos las ventas realizadas entre 2019 y 2021, considerando solo pinturas.
+WHERE v.fecha_venta >= '2019-01-01'
+  AND v.fecha_venta < '2022-01-01'
+  AND t.tipo_de_arte = 'Pintura'
+
+-- Agrupamos por cliente para contar la cantidad de pinturas compradas por cada uno.
+GROUP BY c.id_cliente
+
+-- Ordenamos por cantidad de pinturas de mayor a menor y obtenemos al cliente con más compras.
+ORDER BY cantidad_pinturas DESC
+LIMIT 1;
+
+
 
 -- 9) Promedio de sueldos de hombres y mujeres mensual por galería
 -- Nota: La tabla empleados registra el sueldo mensual base vigente (no histórico),
