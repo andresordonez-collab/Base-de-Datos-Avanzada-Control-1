@@ -55,7 +55,21 @@ LIMIT 1;
 SELECT DISTINCT ON (galerias.nombre_galeria) galerias.nombre_galeria, empleados.nombre_empleado, COUNT(ventas.id_venta) AS cantidad_ventas FROM galerias
 INNER JOIN empleados ON empleados.id_galeria = galerias.id_galeria -- Filtramos por id en las tablas galerias, empleados, vendedores y ventas
 INNER JOIN vendedores ON vendedores.id_empleado = empleados.id_empleado
-INNER JOIN ventas ON ventas.id_vendedor = vendedores.id_vendedor
+INNER JOIN ventas ON ventas.id_vendSELECT nombre_galeria, 
+		EXTRACT (YEAR FROM fecha_venta) AS año,
+		EXTRACT (MONTH FROM fecha_venta) AS mes,
+		MAX(precio_final) AS venta_maxima 
+		FROM ventas
+
+INNER JOIN vendedores ON ventas.id_vendedor = vendedores.id_vendedor
+INNER JOIN empleados ON vendedores.id_empleado = empleados.id_empleado
+INNER JOIN galerias ON empleados.id_galeria = galerias.id_galeria
+
+WHERE fecha_venta >= '2019-01-01 00:00:00'
+AND fecha_venta < '2020-01-01 00:00:00'
+
+GROUP BY nombre_galeria, año, mes
+ORDER BY mes;edor = vendedores.id_vendedor
 GROUP BY galerias.nombre_galeria, empleados.nombre_empleado -- Agrupamos las columnas
 ORDER BY galerias.nombre_galeria, cantidad_ventas DESC; -- Ordenamos de mayor a menor
 
@@ -105,6 +119,40 @@ FROM ventas_por_tipo v
 JOIN maximos m ON m.year = v.year AND m.max_cant = v.cant_vendidas
 ORDER BY v.year;
 
+-- 6) Lista de regiones y sus galerías por comuna.
+
+SELECT regiones.nombre_region, 
+		comunas.nombre_comuna, 
+		galerias.nombre_galeria FROM regiones
+
+-- Se relaciona galería a través de la comuna
+INNER JOIN comunas ON comunas.id_region = regiones.id_region
+INNER JOIN galerias ON galerias.id_comuna = comunas.id_comuna
+
+-- Se ordena para legibilidad
+ORDER BY regiones.nombre_region;
+
+
+-- 7) Venta más cara por mes, por galería en el 2019.
+
+SELECT nombre_galeria, 
+		EXTRACT (YEAR FROM fecha_venta) AS año,
+		EXTRACT (MONTH FROM fecha_venta) AS mes,
+		MAX(precio_final) AS venta_maxima -- Venta más cara
+		FROM ventas
+
+-- Se relaciona con la galeria
+INNER JOIN vendedores ON ventas.id_vendedor = vendedores.id_vendedor
+INNER JOIN empleados ON vendedores.id_empleado = empleados.id_empleado
+INNER JOIN galerias ON empleados.id_galeria = galerias.id_galeria
+
+-- Se filtra solo para trabajar con ventas del 2019
+WHERE fecha_venta >= '2019-01-01 00:00:00'
+AND fecha_venta < '2020-01-01 00:00:00'
+
+-- Se agrupa por galeria y cada mes 
+GROUP BY nombre_galeria, año, mes
+ORDER BY mes, nombre_galeria;
 
 
 -- 8) Cliente que ha comprado más pinturas entre 2019 y 2021.
