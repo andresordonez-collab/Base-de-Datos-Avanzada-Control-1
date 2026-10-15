@@ -6,13 +6,13 @@ CREATE TABLE regiones(id_region BIGSERIAL PRIMARY KEY,
 
 -- Creamos la tabla de comuna
 CREATE TABLE comunas(id_comuna BIGSERIAL PRIMARY KEY,
-	id_region BIGINT,
+	id_region BIGINT NOT NULL,
 	nombre_comuna VARCHAR(100) NOT NULL,
 	FOREIGN KEY (id_region) REFERENCES regiones(id_region));
 
 -- Creamos la tabla de galeria
 CREATE TABLE galerias(id_galeria BIGSERIAL PRIMARY KEY,
-	id_comuna BIGINT,
+	id_comuna BIGINT NOT NULL,
 	nombre_galeria VARCHAR(100) NOT NULL,
 	FOREIGN KEY (id_comuna) REFERENCES comunas(id_comuna));
 
@@ -26,15 +26,15 @@ CREATE TABLE tipos(
 -- Creamos la tabla de clientes
 CREATE TABLE clientes(
     id_cliente BIGSERIAL PRIMARY KEY, 
-    id_comuna BIGINT, 
+    id_comuna BIGINT NOT NULL, 
     nombre_cliente VARCHAR(100) NOT NULL,
     FOREIGN KEY (id_comuna) REFERENCES comunas(id_comuna));
 
 
 -- Creamos la tabla de empleado
 CREATE TABLE empleados(id_empleado BIGSERIAL PRIMARY KEY,
-	id_galeria BIGINT,
-    nombre_empleado VARCHAR(100),
+	id_galeria BIGINT NOT NULL,
+    nombre_empleado VARCHAR(100) NOT NULL,
     genero VARCHAR(20) NOT NULL,
     sueldo DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (id_galeria) REFERENCES galerias(id_galeria));
@@ -43,14 +43,14 @@ CREATE TABLE empleados(id_empleado BIGSERIAL PRIMARY KEY,
 -- Creamos la tabla de vendedor
 CREATE TABLE vendedores(
 	id_vendedor BIGSERIAL PRIMARY KEY,
-	id_empleado BIGINT,
+	id_empleado BIGINT NOT NULL,
 	FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado));
 
 -- Creamos la tabla de ventas
 CREATE TABLE ventas(
     id_venta BIGSERIAL PRIMARY KEY,
-    id_cliente BIGINT,
-    id_vendedor BIGINT,
+    id_cliente BIGINT NOT NULL,
+    id_vendedor BIGINT NOT NULL,
     fecha_venta TIMESTAMP NOT NULL,
     precio_final DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
@@ -60,7 +60,7 @@ CREATE TABLE ventas(
 -- Creamos la tabla de productos
 create table productos(
     id_producto BIGSERIAL PRIMARY KEY,
-	id_tipo BIGINT,
+	id_tipo BIGINT NOT NULL,
 	nombre_producto VARCHAR(100) NOT NULL UNIQUE,
 	precio DECIMAL(10,2) NOT NULL,
 	peso_kg DECIMAL(6,2) NOT NULL,
@@ -70,8 +70,8 @@ create table productos(
 
 -- Creamos la tabla de productos_ventas.
 CREATE TABLE productos_ventas(
-    id_producto BIGINT,
-    id_venta BIGINT,
+    id_producto BIGINT NOT NULL,
+    id_venta BIGINT NOT NULL,
     PRIMARY KEY (id_producto, id_venta),
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
     FOREIGN KEY (id_venta) REFERENCES ventas(id_venta)
