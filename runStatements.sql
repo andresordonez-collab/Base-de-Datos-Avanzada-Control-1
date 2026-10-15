@@ -122,7 +122,7 @@ ORDER BY regiones.nombre_region;
 -- 7) Venta más cara por mes, por galería en el 2019.
 
 SELECT nombre_galeria, 
-		EXTRACT (YEAR FROM fecha_venta) AS año,
+		EXTRACT (YEAR FROM fecha_venta) AS year,
 		EXTRACT (MONTH FROM fecha_venta) AS mes,
 		MAX(precio_final) AS venta_maxima -- Venta más cara
 		FROM ventas
@@ -137,7 +137,7 @@ WHERE fecha_venta >= '2019-01-01 00:00:00'
 AND fecha_venta < '2020-01-01 00:00:00'
 
 -- Se agrupa por galeria y cada mes 
-GROUP BY nombre_galeria, año, mes
+GROUP BY nombre_galeria, year, mes
 ORDER BY mes, nombre_galeria;
 
 
